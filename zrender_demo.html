@@ -2,11 +2,22 @@
 <head>
 	<title>ZRender Demo</title>
 	<script src="./node_modules/zrender/dist/zrender.js"></script>
+	<style>
+		#main {
+			width:100%;
+			height:100%;
+			max-height: 750px;
+		}
+	</style>
 </head>
 <body>
-	<div id="main" style="width:1200px;height:600px;border:2px black solid"></div>
+	<div id="main" style="border:2px black solid"></div>
 	<div>
 		<input id="btn" type="button" value="Changed Size" />
+		<input id="btn-translate" type="button" value="Move towards south-east" />
+		<input id="btn-translate1" type="button" value="Move towards north-west" />
+		<input id="btn-translate2" type="button" value="Move towards east" />
+		<input id="btn-translate3" type="button" value="Move towards west" />
 	</div>
 
 	<script>
@@ -17,6 +28,35 @@
 				    r: 50 // 只更新 r。cx、cy 将保持不变。
 				});
 			});
+
+			btn = document.getElementById('btn-translate');
+			btn.addEventListener("click", function(e) {
+				group.animateTo({
+		         position: [group.position[0] + 10, group.position[1] + 10], // 每次移动（10px，10px）
+		        }, 100, 100)
+			});
+
+			btn = document.getElementById('btn-translate1');
+			btn.addEventListener("click", function(e) {
+				group.animateTo({
+		         position: [group.position[0] - 10, group.position[1] - 10], // 每次移动（-10px，-10px）
+		        }, 100, 100)
+			});
+
+			btn = document.getElementById('btn-translate2');
+			btn.addEventListener("click", function(e) {
+				group.animateTo({
+		         position: [group.position[0] + 10, group.position[1]], // 每次移动（+10px，0px）
+		        }, 100, 100)
+			});
+
+			btn = document.getElementById('btn-translate3');
+			btn.addEventListener("click", function(e) {
+				group.animateTo({
+		         position: [group.position[0] - 10, group.position[1]], // 每次移动（0px，-10px）
+		        }, 100, 100)
+			});
+
 			var zr = zrender.init(document.getElementById('main'));
 
 			// 实现画布整体缩放的代码
